@@ -145,6 +145,29 @@ export const translations: Translations = {
   shop: { en: "Shop", lv: "Veikals", ru: "Магазин" },
   addToCart: { en: "Add to Cart", lv: "Pievienot grozam", ru: "В корзину" },
   viewDetails: { en: "View Details", lv: "Skatīt detaļas", ru: "Подробнее" },
+  
+  // Checkout
+  shoppingCart: { en: "Shopping Cart", lv: "Iepirkumu grozs", ru: "Корзина" },
+  yourCartIsEmpty: { en: "Your Cart is Empty", lv: "Jūsu grozs ir tukšs", ru: "Ваша корзина пуста" },
+  discoverCollection: { en: "Discover our exquisite collection of diamond jewelry", lv: "Atklājiet mūsu izsmalcināto dimantu rotaslietu kolekciju", ru: "Откройте нашу изысканную коллекцию бриллиантовых украшений" },
+  exploreCollection: { en: "Explore Collection", lv: "Apskatīt kolekciju", ru: "Смотреть коллекцию" },
+  orderSummary: { en: "Order Summary", lv: "Pasūtījuma kopsavilkums", ru: "Сводка заказа" },
+  subtotal: { en: "Subtotal", lv: "Starpsumma", ru: "Промежуточный итог" },
+  shipping: { en: "Shipping", lv: "Piegāde", ru: "Доставка" },
+  free: { en: "Free", lv: "Bezmaksas", ru: "Бесплатно" },
+  total: { en: "Total", lv: "Kopā", ru: "Итого" },
+  proceedToCheckout: { en: "Proceed to Secure Checkout", lv: "Turpināt uz drošu apmaksu", ru: "Перейти к безопасной оплате" },
+  securePayment: { en: "Secure Payment via Stripe", lv: "Droša maksājuma caur Stripe", ru: "Безопасная оплата через Stripe" },
+  processing: { en: "Processing...", lv: "Apstrādā...", ru: "Обработка..." },
+  paymentSuccess: { en: "Payment Successful!", lv: "Maksājums veiksmīgs!", ru: "Оплата успешна!" },
+  thankYouOrder: { en: "Thank you for your order!", lv: "Paldies par jūsu pasūtījumu!", ru: "Спасибо за ваш заказ!" },
+  orderConfirmation: { en: "Your order has been placed successfully. We'll send you a confirmation email shortly.", lv: "Jūsu pasūtījums ir veiksmīgi noformēts. Mēs drīzumā nosūtīsim jums apstiprinājuma e-pastu.", ru: "Ваш заказ успешно оформлен. Мы скоро отправим вам письмо с подтверждением." },
+  continueShopping: { en: "Continue Shopping", lv: "Turpināt iepirkties", ru: "Продолжить покупки" },
+  returnHome: { en: "Return Home", lv: "Atgriezties mājās", ru: "На главную" },
+  paymentCanceled: { en: "Payment Canceled", lv: "Maksājums atcelts", ru: "Оплата отменена" },
+  paymentCanceledDesc: { en: "Your payment was canceled. Your cart items are still saved.", lv: "Jūsu maksājums tika atcelts. Jūsu groza preces joprojām ir saglabātas.", ru: "Ваш платеж был отменен. Товары в корзине сохранены." },
+  tryAgain: { en: "Try Again", lv: "Mēģināt vēlreiz", ru: "Попробовать снова" },
+  checkoutError: { en: "Checkout Error", lv: "Apmaksas kļūda", ru: "Ошибка оплаты" },
 };
 
 interface LanguageContextType {
