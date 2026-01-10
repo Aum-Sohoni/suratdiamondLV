@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, ShoppingBag } from "lucide-react";
+import { Menu, X, ChevronDown, ShoppingBag, User, LogOut } from "lucide-react";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import logo from "@/assets/logo.png";
 
 const languages: { code: Language; label: string }[] = [
@@ -16,8 +17,10 @@ export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { totalItems } = useCart();
+  const { user, signOut } = useAuth();
   const location = useLocation();
 
   const isHomePage = location.pathname === "/";
@@ -44,14 +47,17 @@ export const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close language menu when clicking outside
+  // Close menus when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => setLangMenuOpen(false);
-    if (langMenuOpen) {
+    const handleClickOutside = () => {
+      setLangMenuOpen(false);
+      setUserMenuOpen(false);
+    };
+    if (langMenuOpen || userMenuOpen) {
       document.addEventListener("click", handleClickOutside);
       return () => document.removeEventListener("click", handleClickOutside);
     }
-  }, [langMenuOpen]);
+  }, [langMenuOpen, userMenuOpen]);
 
   const NavLink = ({ link }: { link: { name: string; href: string; isLink?: boolean } }) => {
     if (link.isLink) {
@@ -117,7 +123,7 @@ export const Navigation = () => {
             </Link>
           </div>
 
-          {/* Right Side: Language + Cart */}
+          {/* Right Side: Language + User + Cart */}
           <div className="hidden lg:flex items-center gap-4">
             {/* Language Switcher */}
             <div className="relative">
@@ -125,6 +131,7 @@ export const Navigation = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   setLangMenuOpen(!langMenuOpen);
+                  setUserMenuOpen(false);
                 }}
                 className="flex items-center gap-1 px-3 py-2 text-sm tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors duration-300 font-body border border-border/50 hover:border-primary/50"
               >
@@ -162,6 +169,55 @@ export const Navigation = () => {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* User Menu */}
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setUserMenuOpen(!userMenuOpen);
+                    setLangMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-300 border border-border/50 hover:border-primary/50"
+                >
+                  <User className="w-4 h-4" />
+                  <span className="max-w-24 truncate">{user.email?.split("@")[0]}</span>
+                </button>
+                
+                <AnimatePresence>
+                  {userMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full right-0 mt-2 bg-card border border-border/50 shadow-lg min-w-40"
+                    >
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          signOut();
+                          setUserMenuOpen(false);
+                        }}
+                        className="flex items-center gap-2 w-full px-4 py-3 text-sm text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors duration-300"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        {t("signOut")}
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            ) : (
+              <Link
+                to="/auth"
+                className="flex items-center gap-2 px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors duration-300 border border-border/50 hover:border-primary/50"
+              >
+                <User className="w-4 h-4" />
+                {t("signIn")}
+              </Link>
+            )}
 
             {/* Cart Icon */}
             <Link

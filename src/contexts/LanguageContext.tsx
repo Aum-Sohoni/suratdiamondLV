@@ -171,6 +171,30 @@ export const translations: Translations = {
   paymentCanceledDesc: { en: "Your payment was canceled. Your cart items are still saved.", lv: "Jūsu maksājums tika atcelts. Jūsu groza preces joprojām ir saglabātas.", ru: "Ваш платеж был отменен. Товары в корзине сохранены." },
   tryAgain: { en: "Try Again", lv: "Mēģināt vēlreiz", ru: "Попробовать снова" },
   checkoutError: { en: "Checkout Error", lv: "Apmaksas kļūda", ru: "Ошибка оплаты" },
+  
+  // Auth
+  welcomeBack: { en: "Welcome Back", lv: "Laipni lūdzam atpakaļ", ru: "С возвращением" },
+  createAccount: { en: "Create Account", lv: "Izveidot kontu", ru: "Создать аккаунт" },
+  signInToContinue: { en: "Sign in to continue shopping", lv: "Piesakieties, lai turpinātu iepirkties", ru: "Войдите, чтобы продолжить покупки" },
+  joinToShop: { en: "Join us to start shopping", lv: "Pievienojieties mums, lai sāktu iepirkties", ru: "Присоединяйтесь, чтобы начать покупки" },
+  enterEmail: { en: "Enter your email", lv: "Ievadiet savu e-pastu", ru: "Введите ваш email" },
+  password: { en: "Password", lv: "Parole", ru: "Пароль" },
+  enterPassword: { en: "Enter your password", lv: "Ievadiet savu paroli", ru: "Введите ваш пароль" },
+  confirmPassword: { en: "Confirm Password", lv: "Apstipriniet paroli", ru: "Подтвердите пароль" },
+  confirmYourPassword: { en: "Confirm your password", lv: "Apstipriniet savu paroli", ru: "Подтвердите ваш пароль" },
+  signIn: { en: "Sign In", lv: "Pieteikties", ru: "Войти" },
+  signUp: { en: "Sign Up", lv: "Reģistrēties", ru: "Зарегистрироваться" },
+  signOut: { en: "Sign Out", lv: "Izrakstīties", ru: "Выйти" },
+  dontHaveAccount: { en: "Don't have an account?", lv: "Nav konta?", ru: "Нет аккаунта?" },
+  alreadyHaveAccount: { en: "Already have an account?", lv: "Jau ir konts?", ru: "Уже есть аккаунт?" },
+  continueBrowsing: { en: "Continue browsing", lv: "Turpināt pārlūkošanu", ru: "Продолжить просмотр" },
+  loginSuccess: { en: "Login successful!", lv: "Veiksmīga pieteikšanās!", ru: "Успешный вход!" },
+  accountCreated: { en: "Account created successfully!", lv: "Konts veiksmīgi izveidots!", ru: "Аккаунт успешно создан!" },
+  passwordsDoNotMatch: { en: "Passwords do not match", lv: "Paroles nesakrīt", ru: "Пароли не совпадают" },
+  passwordTooShort: { en: "Password must be at least 6 characters", lv: "Parolei jābūt vismaz 6 rakstzīmēm", ru: "Пароль должен быть не менее 6 символов" },
+  authError: { en: "Authentication error. Please try again.", lv: "Autentifikācijas kļūda. Lūdzu, mēģiniet vēlreiz.", ru: "Ошибка аутентификации. Попробуйте снова." },
+  loginToCheckout: { en: "Please sign in to checkout", lv: "Lūdzu, piesakieties, lai apmaksātu", ru: "Пожалуйста, войдите для оформления заказа" },
+  account: { en: "Account", lv: "Konts", ru: "Аккаунт" },
 };
 
 interface LanguageContextType {

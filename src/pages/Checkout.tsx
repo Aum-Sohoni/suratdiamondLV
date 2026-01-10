@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   XCircle,
   Loader2,
   Shield,
+  LogIn,
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -37,6 +39,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { items, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
+  const { user, isLoading: authLoading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<"idle" | "success" | "canceled">("idle");
 
@@ -74,6 +77,12 @@ const Checkout = () => {
   }, [searchParams, clearCart, t]);
 
   const handleCheckout = async () => {
+    if (!user) {
+      toast.error(t("loginToCheckout"));
+      navigate("/auth?redirect=/checkout");
+      return;
+    }
+
     setIsLoading(true);
     
     try {
@@ -328,25 +337,34 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <Button
-                  variant="luxury"
-                  size="lg"
-                  className="w-full mb-4"
-                  onClick={handleCheckout}
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      {t("processing")}
-                    </>
-                  ) : (
-                    <>
-                      <CreditCard className="w-4 h-4 mr-2" />
-                      {t("proceedToCheckout")}
-                    </>
-                  )}
-                </Button>
+                {!user && !authLoading ? (
+                  <Link to="/auth?redirect=/checkout" className="block w-full mb-4">
+                    <Button variant="luxury" size="lg" className="w-full">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      {t("signIn")} / {t("signUp")}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Button
+                    variant="luxury"
+                    size="lg"
+                    className="w-full mb-4"
+                    onClick={handleCheckout}
+                    disabled={isLoading || authLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        {t("processing")}
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="w-4 h-4 mr-2" />
+                        {t("proceedToCheckout")}
+                      </>
+                    )}
+                  </Button>
+                )}
 
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                   <Shield className="w-4 h-4" />
