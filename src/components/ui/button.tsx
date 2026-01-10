@@ -15,8 +15,8 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm",
         ghost: "hover:bg-accent hover:text-accent-foreground rounded-sm",
         link: "text-primary underline-offset-4 hover:underline",
-        // Luxury variants
-        luxury: "relative overflow-hidden bg-gradient-to-r from-gold to-gold-light text-primary-foreground uppercase tracking-[0.25em] font-medium hover:shadow-[0_0_30px_hsl(43_74%_49%/0.4)] border-0 rounded-none",
+        // Luxury variants - Silver/Platinum
+        luxury: "relative overflow-hidden bg-gradient-to-r from-platinum to-platinum-light text-primary-foreground uppercase tracking-[0.25em] font-medium hover:shadow-[0_0_30px_hsl(0_0%_75%/0.4)] border-0 rounded-none",
         luxuryOutline: "relative overflow-hidden border border-primary bg-transparent text-primary uppercase tracking-[0.25em] font-medium hover:bg-primary hover:text-primary-foreground rounded-none",
         luxuryGhost: "relative overflow-hidden bg-transparent text-foreground uppercase tracking-[0.2em] font-medium hover:text-primary border-b border-transparent hover:border-primary rounded-none",
       },

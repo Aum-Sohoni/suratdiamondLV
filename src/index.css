@@ -6,90 +6,90 @@
 
 @layer base {
   :root {
-    /* Luxury Diamond Theme - Light accents on dark */
-    --background: 0 0% 4%;
-    --foreground: 45 20% 95%;
+    /* Luxury Diamond Theme - Black & Silver */
+    --background: 0 0% 3%;
+    --foreground: 0 0% 95%;
 
-    --card: 0 0% 7%;
-    --card-foreground: 45 20% 95%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 7%;
-    --popover-foreground: 45 20% 95%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
 
-    /* Rich Gold */
-    --primary: 43 74% 49%;
-    --primary-foreground: 0 0% 4%;
+    /* Platinum Silver */
+    --primary: 0 0% 75%;
+    --primary-foreground: 0 0% 5%;
 
-    /* Soft Silver */
-    --secondary: 0 0% 75%;
+    /* Light Silver */
+    --secondary: 0 0% 85%;
     --secondary-foreground: 0 0% 10%;
 
     /* Muted charcoal */
     --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
+    --muted-foreground: 0 0% 55%;
 
-    /* Gold accent */
-    --accent: 43 74% 49%;
-    --accent-foreground: 0 0% 4%;
+    /* Silver accent */
+    --accent: 0 0% 80%;
+    --accent-foreground: 0 0% 5%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 0 0% 18%;
     --input: 0 0% 18%;
-    --ring: 43 74% 49%;
+    --ring: 0 0% 75%;
 
     --radius: 0.25rem;
 
-    /* Custom luxury tokens */
-    --gold: 43 74% 49%;
-    --gold-light: 43 60% 65%;
-    --gold-dark: 43 80% 35%;
-    --champagne: 39 50% 85%;
-    --diamond: 0 0% 98%;
-    --charcoal: 0 0% 8%;
-    --charcoal-light: 0 0% 12%;
+    /* Custom luxury tokens - Silver/Platinum */
+    --platinum: 0 0% 80%;
+    --platinum-light: 0 0% 90%;
+    --platinum-dark: 0 0% 65%;
     --silver: 0 0% 75%;
+    --silver-light: 0 0% 85%;
+    --diamond: 0 0% 98%;
+    --charcoal: 0 0% 5%;
+    --charcoal-light: 0 0% 10%;
 
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(43 74% 49%), hsl(43 60% 65%));
-    --gradient-dark: linear-gradient(180deg, hsl(0 0% 4%), hsl(0 0% 8%));
+    --gradient-silver: linear-gradient(135deg, hsl(0 0% 75%), hsl(0 0% 90%));
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 3%), hsl(0 0% 8%));
     --gradient-shimmer: linear-gradient(90deg, transparent, hsl(0 0% 100% / 0.1), transparent);
 
     /* Shadows */
-    --shadow-gold: 0 4px 30px hsl(43 74% 49% / 0.15);
-    --shadow-elevated: 0 20px 60px hsl(0 0% 0% / 0.5);
+    --shadow-silver: 0 4px 30px hsl(0 0% 75% / 0.15);
+    --shadow-elevated: 0 20px 60px hsl(0 0% 0% / 0.6);
 
-    --sidebar-background: 0 0% 6%;
-    --sidebar-foreground: 45 20% 95%;
-    --sidebar-primary: 43 74% 49%;
-    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 0% 75%;
+    --sidebar-primary-foreground: 0 0% 5%;
     --sidebar-accent: 0 0% 12%;
-    --sidebar-accent-foreground: 45 20% 95%;
+    --sidebar-accent-foreground: 0 0% 95%;
     --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 43 74% 49%;
+    --sidebar-ring: 0 0% 75%;
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 45 20% 95%;
-    --card: 0 0% 7%;
-    --card-foreground: 45 20% 95%;
-    --popover: 0 0% 7%;
-    --popover-foreground: 45 20% 95%;
-    --primary: 43 74% 49%;
-    --primary-foreground: 0 0% 4%;
-    --secondary: 0 0% 75%;
+    --background: 0 0% 3%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 75%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 0 0% 85%;
     --secondary-foreground: 0 0% 10%;
     --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 43 74% 49%;
-    --accent-foreground: 0 0% 4%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 0 0% 80%;
+    --accent-foreground: 0 0% 5%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 0 0% 18%;
     --input: 0 0% 18%;
-    --ring: 43 74% 49%;
+    --ring: 0 0% 75%;
   }
 }
 
@@ -114,19 +114,19 @@
 }
 
 @layer components {
-  .text-gradient-gold {
-    background: linear-gradient(135deg, hsl(43 74% 49%), hsl(43 60% 70%));
+  .text-gradient-silver {
+    background: linear-gradient(135deg, hsl(0 0% 75%), hsl(0 0% 95%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .border-gradient-gold {
-    border-image: linear-gradient(135deg, hsl(43 74% 49%), hsl(43 60% 65%)) 1;
+  .border-gradient-silver {
+    border-image: linear-gradient(135deg, hsl(0 0% 75%), hsl(0 0% 90%)) 1;
   }
 
-  .glow-gold {
-    box-shadow: 0 0 40px hsl(43 74% 49% / 0.3);
+  .glow-silver {
+    box-shadow: 0 0 40px hsl(0 0% 75% / 0.25);
   }
 
   .sparkle {
