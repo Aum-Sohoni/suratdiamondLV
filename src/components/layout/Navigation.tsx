@@ -25,6 +25,26 @@ export const Navigation = () => {
 
   const isHomePage = location.pathname === "/";
 
+  // Smooth scroll handler with offset for fixed header
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        const headerOffset = 80; // Account for fixed header
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
+      setIsOpen(false);
+    }
+  };
+
   const navLinks = isHomePage
     ? [
         { name: t("home"), href: "#hero" },
@@ -73,6 +93,7 @@ export const Navigation = () => {
     return (
       <a
         href={link.href}
+        onClick={(e) => handleSmoothScroll(e, link.href)}
         className="text-sm tracking-[0.15em] uppercase text-muted-foreground hover:text-primary transition-colors duration-300 font-body"
       >
         {link.name}
@@ -341,7 +362,7 @@ export const Navigation = () => {
                   ) : (
                     <a
                       href={link.href}
-                      onClick={() => setIsOpen(false)}
+                      onClick={(e) => handleSmoothScroll(e, link.href)}
                       className="text-base sm:text-lg tracking-[0.15em] uppercase text-foreground hover:text-primary transition-colors font-body"
                     >
                       {link.name}
