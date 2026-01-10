@@ -107,8 +107,13 @@ const Checkout = () => {
       }
 
       if (data?.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url;
+        // Stripe Checkout cannot be displayed inside the Lovable preview iframe.
+        // Open in a new tab/window to ensure it loads correctly.
+        const opened = window.open(data.url, "_blank", "noopener,noreferrer");
+        if (!opened) {
+          // Fallback if the popup was blocked
+          window.location.href = data.url;
+        }
       } else {
         throw new Error("No checkout URL returned");
       }
