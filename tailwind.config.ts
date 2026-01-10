@@ -61,18 +61,20 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        gold: {
-          DEFAULT: "hsl(var(--gold))",
-          light: "hsl(var(--gold-light))",
-          dark: "hsl(var(--gold-dark))",
+        platinum: {
+          DEFAULT: "hsl(var(--platinum))",
+          light: "hsl(var(--platinum-light))",
+          dark: "hsl(var(--platinum-dark))",
         },
-        champagne: "hsl(var(--champagne))",
+        silver: {
+          DEFAULT: "hsl(var(--silver))",
+          light: "hsl(var(--silver-light))",
+        },
         diamond: "hsl(var(--diamond))",
         charcoal: {
           DEFAULT: "hsl(var(--charcoal))",
           light: "hsl(var(--charcoal-light))",
         },
-        silver: "hsl(var(--silver))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -113,8 +115,8 @@ export default {
           "50%": { opacity: "1" },
         },
         "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 20px hsl(43 74% 49% / 0.2)" },
-          "50%": { boxShadow: "0 0 40px hsl(43 74% 49% / 0.4)" },
+          "0%, 100%": { boxShadow: "0 0 20px hsl(0 0% 75% / 0.2)" },
+          "50%": { boxShadow: "0 0 40px hsl(0 0% 75% / 0.4)" },
         },
       },
       animation: {
@@ -130,8 +132,8 @@ export default {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-gold': 'linear-gradient(135deg, hsl(43 74% 49%), hsl(43 60% 65%))',
-        'gradient-dark': 'linear-gradient(180deg, hsl(0 0% 4%), hsl(0 0% 10%))',
+        'gradient-silver': 'linear-gradient(135deg, hsl(0 0% 75%), hsl(0 0% 90%))',
+        'gradient-dark': 'linear-gradient(180deg, hsl(0 0% 3%), hsl(0 0% 8%))',
       },
     },
   },
