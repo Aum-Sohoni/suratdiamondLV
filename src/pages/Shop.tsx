@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { products, Product } from "@/data/products";
-import { ShoppingBag, Filter } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
 import collectionNecklace from "@/assets/collection-necklace.jpg";
 import collectionRing from "@/assets/collection-ring.jpg";
 import collectionEarrings from "@/assets/collection-earrings.jpg";
@@ -23,9 +24,28 @@ const categoryImages: Record<string, string> = {
 const Shop = () => {
   const { t, language } = useLanguage();
   const { addToCart } = useCart();
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get("category") || "all";
+  const [selectedCategory, setSelectedCategory] = useState<string>(categoryFromUrl);
 
   const categories = ["all", "necklaces", "rings", "earrings", "bracelets"];
+
+  // Sync URL with selected category
+  useEffect(() => {
+    const urlCategory = searchParams.get("category") || "all";
+    if (urlCategory !== selectedCategory) {
+      setSelectedCategory(urlCategory);
+    }
+  }, [searchParams]);
+
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    if (category === "all") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ category });
+    }
+  };
 
   const filteredProducts =
     selectedCategory === "all"
@@ -50,6 +70,11 @@ const Shop = () => {
     }).format(price);
   };
 
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
+    toast.success(t("addedToCart") || "Added to cart!");
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -63,7 +88,9 @@ const Shop = () => {
             className="text-center mb-12"
           >
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl text-foreground mb-4">
-              {t("collections")}
+              {selectedCategory === "all" 
+                ? t("collections") 
+                : t(selectedCategory)}
             </h1>
             <p className="text-muted-foreground font-body text-lg max-w-2xl mx-auto">
               {t("collectionsDescription")}
@@ -81,7 +108,7 @@ const Shop = () => {
               <Button
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => handleCategoryChange(category)}
                 className="capitalize text-xs sm:text-sm"
               >
                 {category === "all" ? t("all") || "All" : t(category)}
@@ -138,10 +165,11 @@ const Shop = () => {
                       <Button
                         size="sm"
                         variant="luxuryOutline"
-                        onClick={() => addToCart(product)}
+                        onClick={() => handleAddToCart(product)}
                         className="text-xs"
                       >
-                        <ShoppingBag className="w-4 h-4" />
+                        <ShoppingBag className="w-4 h-4 mr-1" />
+                        {t("addToCart")}
                       </Button>
                     </div>
                   </div>
@@ -149,6 +177,26 @@ const Shop = () => {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Empty state */}
+          {filteredProducts.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-20"
+            >
+              <p className="text-muted-foreground text-lg">
+                {t("noProductsFound") || "No products found in this category."}
+              </p>
+              <Button
+                variant="luxury"
+                className="mt-4"
+                onClick={() => handleCategoryChange("all")}
+              >
+                {t("viewAllProducts") || "View All Products"}
+              </Button>
+            </motion.div>
+          )}
         </div>
       </main>
 

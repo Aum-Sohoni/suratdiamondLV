@@ -144,7 +144,10 @@ export const translations: Translations = {
   all: { en: "All", lv: "Visi", ru: "Все" },
   shop: { en: "Shop", lv: "Veikals", ru: "Магазин" },
   addToCart: { en: "Add to Cart", lv: "Pievienot grozam", ru: "В корзину" },
+  addedToCart: { en: "Added to cart!", lv: "Pievienots grozam!", ru: "Добавлено в корзину!" },
   viewDetails: { en: "View Details", lv: "Skatīt detaļas", ru: "Подробнее" },
+  noProductsFound: { en: "No products found in this category.", lv: "Šajā kategorijā nav atrasti produkti.", ru: "В этой категории товары не найдены." },
+  viewAllProducts: { en: "View All Products", lv: "Skatīt visus produktus", ru: "Смотреть все товары" },
   
   // Checkout
   shoppingCart: { en: "Shopping Cart", lv: "Iepirkumu grozs", ru: "Корзина" },

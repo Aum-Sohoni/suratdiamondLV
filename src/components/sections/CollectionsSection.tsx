@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import necklaceImage from "@/assets/collection-necklace.jpg";
 import ringImage from "@/assets/collection-ring.jpg";
@@ -37,24 +38,28 @@ export const CollectionsSection = () => {
       descKey: "necklacesDesc",
       image: necklaceImage,
       items: 48,
+      category: "necklaces",
     },
     {
       nameKey: "rings",
       descKey: "ringsDesc",
       image: ringImage,
       items: 72,
+      category: "rings",
     },
     {
       nameKey: "earrings",
       descKey: "earringsDesc",
       image: earringsImage,
       items: 56,
+      category: "earrings",
     },
     {
       nameKey: "bracelets",
       descKey: "braceletsDesc",
       image: braceletImage,
       items: 34,
+      category: "bracelets",
     },
   ];
 
@@ -89,47 +94,50 @@ export const CollectionsSection = () => {
           className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 xl:gap-8"
         >
           {collections.map((collection) => (
-            <motion.a
+            <motion.div
               key={collection.nameKey}
-              href="#"
               variants={itemVariants}
-              className="group relative overflow-hidden bg-card aspect-[3/4] cursor-pointer"
             >
-              {/* Image */}
-              <div className="absolute inset-0 image-shimmer">
-                <img
-                  src={collection.image}
-                  alt={t(collection.nameKey)}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-              </div>
-
-              {/* Content */}
-              <div className="absolute inset-0 p-3 sm:p-4 lg:p-6 flex flex-col justify-end">
-                <span className="text-primary/80 text-[10px] sm:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-1 sm:mb-2 font-body">
-                  {collection.items} {t("pieces")}
-                </span>
-                <h3 className="font-display text-lg sm:text-xl lg:text-2xl text-foreground mb-0.5 sm:mb-1 group-hover:text-primary transition-colors duration-300">
-                  {t(collection.nameKey)}
-                </h3>
-                <p className="text-muted-foreground text-xs sm:text-sm font-body mb-2 sm:mb-4 line-clamp-2">
-                  {t(collection.descKey)}
-                </p>
-
-                {/* Explore link */}
-                <div className="flex items-center gap-1 sm:gap-2 text-primary opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                  <span className="text-xs sm:text-sm tracking-[0.1em] sm:tracking-[0.15em] uppercase font-body">
-                    {t("explore")}
-                  </span>
-                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+              <Link
+                to={`/shop?category=${collection.category}`}
+                className="group relative overflow-hidden bg-card aspect-[3/4] cursor-pointer block"
+              >
+                {/* Image */}
+                <div className="absolute inset-0 image-shimmer">
+                  <img
+                    src={collection.image}
+                    alt={t(collection.nameKey)}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
                 </div>
-              </div>
 
-              {/* Border effect */}
-              <div className="absolute inset-0 border border-primary/0 group-hover:border-primary/30 transition-colors duration-500" />
-            </motion.a>
+                {/* Content */}
+                <div className="absolute inset-0 p-3 sm:p-4 lg:p-6 flex flex-col justify-end">
+                  <span className="text-primary/80 text-[10px] sm:text-xs tracking-[0.15em] sm:tracking-[0.2em] uppercase mb-1 sm:mb-2 font-body">
+                    {collection.items} {t("pieces")}
+                  </span>
+                  <h3 className="font-display text-lg sm:text-xl lg:text-2xl text-foreground mb-0.5 sm:mb-1 group-hover:text-primary transition-colors duration-300">
+                    {t(collection.nameKey)}
+                  </h3>
+                  <p className="text-muted-foreground text-xs sm:text-sm font-body mb-2 sm:mb-4 line-clamp-2">
+                    {t(collection.descKey)}
+                  </p>
+
+                  {/* Explore link */}
+                  <div className="flex items-center gap-1 sm:gap-2 text-primary opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                    <span className="text-xs sm:text-sm tracking-[0.1em] sm:tracking-[0.15em] uppercase font-body">
+                      {t("explore")}
+                    </span>
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                  </div>
+                </div>
+
+                {/* Border effect */}
+                <div className="absolute inset-0 border border-primary/0 group-hover:border-primary/30 transition-colors duration-500" />
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       </div>
