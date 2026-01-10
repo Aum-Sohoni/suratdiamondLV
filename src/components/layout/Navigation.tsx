@@ -27,13 +27,13 @@ export const Navigation = () => {
 
   const navLinks = isHomePage
     ? [
-        { name: t("collections"), href: "#collections" },
+        { name: t("home"), href: "#hero" },
         { name: t("about"), href: "#about" },
         { name: t("bespoke"), href: "#bespoke" },
         { name: t("contact"), href: "#contact" },
       ]
     : [
-        { name: t("collections"), href: "/shop", isLink: true },
+        { name: t("home"), href: "/", isLink: true },
         { name: t("about"), href: "/#about", isLink: true },
         { name: t("bespoke"), href: "/#bespoke", isLink: true },
         { name: t("contact"), href: "/#contact", isLink: true },

@@ -12,6 +12,7 @@ interface Translations {
 
 export const translations: Translations = {
   // Navigation
+  home: { en: "Home", lv: "Sākums", ru: "Главная" },
   collections: { en: "Collections", lv: "Kolekcijas", ru: "Коллекции" },
   about: { en: "About", lv: "Par mums", ru: "О нас" },
   bespoke: { en: "Bespoke", lv: "Individuālais dizains", ru: "На заказ" },

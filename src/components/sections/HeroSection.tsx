@@ -17,7 +17,7 @@ export const HeroSection = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="relative min-h-screen bg-background pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden">
+    <section id="hero" className="relative min-h-screen bg-background pt-20 sm:pt-24 pb-12 sm:pb-16 overflow-hidden">
       {/* Large Typography */}
       <div className="container mx-auto px-4 sm:px-6">
         <motion.h1
