@@ -1,14 +1,40 @@
 import { createContext, useContext, useState, ReactNode } from "react";
-import { Product } from "@/data/products";
+
+// Flexible product type that supports both static and database products
+export interface CartProduct {
+  id: string;
+  name: string;
+  name_lv?: string;
+  name_ru?: string;
+  nameLv?: string;
+  nameRu?: string;
+  category: string;
+  price: number;
+  image?: string;
+  image_url?: string | null;
+  carat?: string | null;
+  clarity?: string | null;
+  color?: string | null;
+  cut?: string | null;
+  metal?: string | null;
+  specifications?: {
+    carat: string;
+    cut: string;
+    clarity: string;
+    color: string;
+    metal: string;
+    weight: string;
+  };
+}
 
 export interface CartItem {
-  product: Product;
+  product: CartProduct;
   quantity: number;
 }
 
 interface CartContextType {
   items: CartItem[];
-  addToCart: (product: Product) => void;
+  addToCart: (product: CartProduct) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
@@ -21,7 +47,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: CartProduct) => {
     setItems((prev) => {
       const existing = prev.find((item) => item.product.id === product.id);
       if (existing) {

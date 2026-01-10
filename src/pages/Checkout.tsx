@@ -53,9 +53,9 @@ const Checkout = () => {
   const getProductName = (product: any) => {
     switch (language) {
       case "lv":
-        return product.nameLv;
+        return product.nameLv || product.name_lv || product.name;
       case "ru":
-        return product.nameRu;
+        return product.nameRu || product.name_ru || product.name;
       default:
         return product.name;
     }
@@ -88,8 +88,8 @@ const Checkout = () => {
     try {
       const checkoutItems = items.map((item) => ({
         name: item.product.name,
-        nameLv: item.product.nameLv,
-        nameRu: item.product.nameRu,
+        nameLv: item.product.nameLv || item.product.name_lv,
+        nameRu: item.product.nameRu || item.product.name_ru,
         price: item.product.price,
         quantity: item.quantity,
         image: categoryImages[item.product.category],
@@ -274,8 +274,8 @@ const Checkout = () => {
                       {getProductName(item.product)}
                     </Link>
                     <span className="text-sm text-muted-foreground mb-2">
-                      {item.product.specifications.carat} •{" "}
-                      {item.product.specifications.clarity}
+                      {item.product.specifications?.carat || item.product.carat} •{" "}
+                      {item.product.specifications?.clarity || item.product.clarity}
                     </span>
                     <span className="font-display text-foreground">
                       {formatPrice(item.product.price)}
