@@ -139,6 +139,12 @@ export const translations: Translations = {
   allRightsReserved: { en: "All rights reserved.", lv: "Visas tiesības aizsargātas.", ru: "Все права защищены." },
   privacyPolicy: { en: "Privacy Policy", lv: "Privātuma politika", ru: "Политика конфиденциальности" },
   termsOfService: { en: "Terms of Service", lv: "Pakalpojumu noteikumi", ru: "Условия обслуживания" },
+  
+  // Shop
+  all: { en: "All", lv: "Visi", ru: "Все" },
+  shop: { en: "Shop", lv: "Veikals", ru: "Магазин" },
+  addToCart: { en: "Add to Cart", lv: "Pievienot grozam", ru: "В корзину" },
+  viewDetails: { en: "View Details", lv: "Skatīt detaļas", ru: "Подробнее" },
 };
 
 interface LanguageContextType {
