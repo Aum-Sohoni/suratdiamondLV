@@ -83,7 +83,8 @@ serve(async (req) => {
           currency: "eur",
           product_data: {
             name: productName,
-            ...(item.image && { images: [item.image] }),
+            // Note: Images must be absolute URLs accessible by Stripe
+            // Local assets cannot be used here
           },
           unit_amount: Math.round(item.price * 100), // Convert to cents
         },
