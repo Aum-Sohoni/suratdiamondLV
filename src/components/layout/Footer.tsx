@@ -1,4 +1,5 @@
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 export const Footer = () => {
@@ -110,12 +111,12 @@ export const Footer = () => {
             © {new Date().getFullYear()} Surat Diamond Latvia. {t("allRightsReserved")}
           </p>
           <div className="flex gap-4 sm:gap-6 text-[10px] sm:text-xs font-body">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <Link to="/privacy-policy" className="text-muted-foreground hover:text-primary transition-colors">
               {t("privacyPolicy")}
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/terms-of-service" className="text-muted-foreground hover:text-primary transition-colors">
               {t("termsOfService")}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
