@@ -2,13 +2,12 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
-// Allowed origins for CORS - update with your production domain
+// Allowed origins for CORS
 const ALLOWED_ORIGINS = [
   'https://bdurxefnxwlagftimxdp.lovableproject.com',
   'http://localhost:5173',
   'http://localhost:8080',
-  // GitHub Pages domains - replace YOUR_USERNAME with your actual GitHub username
-  'https://YOUR_USERNAME.github.io',
+  'https://aum-sohoni.github.io',
 ];
 
 const getCorsHeaders = (origin: string | null) => {
