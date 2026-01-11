@@ -7,6 +7,8 @@ const ALLOWED_ORIGINS = [
   'https://bdurxefnxwlagftimxdp.lovableproject.com',
   'http://localhost:5173',
   'http://localhost:8080',
+  // GitHub Pages domains - replace YOUR_USERNAME with your actual GitHub username
+  'https://YOUR_USERNAME.github.io',
 ];
 
 const getCorsHeaders = (origin: string | null) => {
