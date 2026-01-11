@@ -219,6 +219,138 @@ export const translations: Translations = {
   viewProducts: { en: "View Products", lv: "Skatīt produktus", ru: "Смотреть товары" },
   addToWishlist: { en: "Add to Wishlist", lv: "Pievienot vēlmju sarakstam", ru: "В список желаний" },
   removeFromWishlist: { en: "Remove from Wishlist", lv: "Noņemt no vēlmju saraksta", ru: "Удалить из списка желаний" },
+
+  // Legal Pages
+  lastUpdated: { en: "Last Updated", lv: "Pēdējoreiz atjaunināts", ru: "Последнее обновление" },
+  
+  // Privacy Policy
+  privacyIntroTitle: { en: "Introduction", lv: "Ievads", ru: "Введение" },
+  privacyIntroText: { 
+    en: "At Surat Diamond Latvia, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit our website or make a purchase.",
+    lv: "Surat Diamond Latvia mēs esam apņēmušies aizsargāt jūsu privātumu un nodrošināt jūsu personiskās informācijas drošību. Šī privātuma politika izskaidro, kā mēs apkopojam, izmantojam un aizsargājam jūsu datus, kad apmeklējat mūsu vietni vai veicat pirkumu.",
+    ru: "В Surat Diamond Latvia мы стремимся защитить вашу конфиденциальность и обеспечить безопасность вашей личной информации. Эта политика конфиденциальности объясняет, как мы собираем, используем и защищаем ваши данные при посещении нашего сайта или совершении покупки."
+  },
+  infoCollectTitle: { en: "Information We Collect", lv: "Informācija, ko mēs apkopojam", ru: "Информация, которую мы собираем" },
+  infoCollectText: { 
+    en: "We collect information that you provide directly to us, including:",
+    lv: "Mēs apkopojam informāciju, ko jūs mums tieši sniedzat, tostarp:",
+    ru: "Мы собираем информацию, которую вы предоставляете нам напрямую, включая:"
+  },
+  infoCollectItem1: { en: "Name, email address, and contact information", lv: "Vārds, e-pasta adrese un kontaktinformācija", ru: "Имя, адрес электронной почты и контактную информацию" },
+  infoCollectItem2: { en: "Shipping and billing addresses", lv: "Piegādes un norēķinu adreses", ru: "Адреса доставки и выставления счетов" },
+  infoCollectItem3: { en: "Payment information (processed securely by Stripe)", lv: "Maksājumu informācija (droši apstrādā Stripe)", ru: "Платежная информация (безопасно обрабатывается Stripe)" },
+  infoCollectItem4: { en: "Order history and preferences", lv: "Pasūtījumu vēsture un preferences", ru: "История заказов и предпочтения" },
+  infoUseTitle: { en: "How We Use Your Information", lv: "Kā mēs izmantojam jūsu informāciju", ru: "Как мы используем вашу информацию" },
+  infoUseText: { 
+    en: "We use the information we collect to:",
+    lv: "Mēs izmantojam savākto informāciju, lai:",
+    ru: "Мы используем собранную информацию для:"
+  },
+  infoUseItem1: { en: "Process and fulfill your orders", lv: "Apstrādātu un izpildītu jūsu pasūtījumus", ru: "Обработки и выполнения ваших заказов" },
+  infoUseItem2: { en: "Communicate with you about your purchases", lv: "Sazinātos ar jums par jūsu pirkumiem", ru: "Связи с вами по поводу ваших покупок" },
+  infoUseItem3: { en: "Send promotional emails (with your consent)", lv: "Nosūtītu reklāmas e-pastus (ar jūsu piekrišanu)", ru: "Отправки рекламных писем (с вашего согласия)" },
+  infoUseItem4: { en: "Improve our website and services", lv: "Uzlabotu mūsu vietni un pakalpojumus", ru: "Улучшения нашего сайта и услуг" },
+  dataSharingTitle: { en: "Data Sharing", lv: "Datu kopīgošana", ru: "Передача данных" },
+  dataSharingText: { 
+    en: "We do not sell, trade, or rent your personal information to third parties. We may share your information with trusted service providers who assist us in operating our website, processing payments, and delivering orders. These partners are bound by confidentiality agreements.",
+    lv: "Mēs nepārdodam, nemainām un neiznomājam jūsu personisko informāciju trešajām pusēm. Mēs varam dalīties ar jūsu informāciju ar uzticamiem pakalpojumu sniedzējiem, kas palīdz mums darbināt mūsu vietni, apstrādāt maksājumus un piegādāt pasūtījumus. Šie partneri ir saistīti ar konfidencialitātes līgumiem.",
+    ru: "Мы не продаем, не обмениваем и не сдаем в аренду вашу личную информацию третьим лицам. Мы можем делиться вашей информацией с надежными поставщиками услуг, которые помогают нам в работе сайта, обработке платежей и доставке заказов. Эти партнеры связаны соглашениями о конфиденциальности."
+  },
+  dataSecurityTitle: { en: "Data Security", lv: "Datu drošība", ru: "Безопасность данных" },
+  dataSecurityText: { 
+    en: "We implement industry-standard security measures to protect your personal information. All payment transactions are encrypted using SSL technology and processed through Stripe's secure payment infrastructure.",
+    lv: "Mēs ieviešam nozares standarta drošības pasākumus, lai aizsargātu jūsu personisko informāciju. Visi maksājumu darījumi ir šifrēti, izmantojot SSL tehnoloģiju, un tiek apstrādāti caur Stripe drošo maksājumu infrastruktūru.",
+    ru: "Мы применяем стандартные отраслевые меры безопасности для защиты вашей личной информации. Все платежные транзакции шифруются с использованием технологии SSL и обрабатываются через защищенную платежную инфраструктуру Stripe."
+  },
+  cookiesTitle: { en: "Cookies", lv: "Sīkdatnes", ru: "Файлы cookie" },
+  cookiesText: { 
+    en: "We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. You can manage cookie preferences through your browser settings.",
+    lv: "Mēs izmantojam sīkdatnes, lai uzlabotu jūsu pārlūkošanas pieredzi, analizētu vietnes apmeklējumu un personalizētu saturu. Jūs varat pārvaldīt sīkdatņu preferences caur pārlūkprogrammas iestatījumiem.",
+    ru: "Мы используем файлы cookie для улучшения вашего опыта просмотра, анализа трафика сайта и персонализации контента. Вы можете управлять настройками cookie через настройки браузера."
+  },
+  yourRightsTitle: { en: "Your Rights", lv: "Jūsu tiesības", ru: "Ваши права" },
+  yourRightsText: { 
+    en: "Under GDPR and applicable data protection laws, you have the following rights:",
+    lv: "Saskaņā ar GDPR un piemērojamiem datu aizsardzības likumiem jums ir šādas tiesības:",
+    ru: "В соответствии с GDPR и применимым законодательством о защите данных у вас есть следующие права:"
+  },
+  yourRightsItem1: { en: "Right to access your personal data", lv: "Tiesības piekļūt saviem personiskajiem datiem", ru: "Право на доступ к вашим персональным данным" },
+  yourRightsItem2: { en: "Right to rectification of inaccurate data", lv: "Tiesības labot neprecīzus datus", ru: "Право на исправление неточных данных" },
+  yourRightsItem3: { en: "Right to erasure ('right to be forgotten')", lv: "Tiesības uz dzēšanu ('tiesības būt aizmirstam')", ru: "Право на удаление ('право быть забытым')" },
+  yourRightsItem4: { en: "Right to data portability", lv: "Tiesības uz datu pārnesamību", ru: "Право на переносимость данных" },
+  contactUsTitle: { en: "Contact Us", lv: "Sazinieties ar mums", ru: "Свяжитесь с нами" },
+  contactUsText: { 
+    en: "If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us at:",
+    lv: "Ja jums ir jautājumi par šo privātuma politiku vai vēlaties izmantot savas tiesības, lūdzu, sazinieties ar mums:",
+    ru: "Если у вас есть вопросы о данной политике конфиденциальности или вы хотите воспользоваться своими правами, пожалуйста, свяжитесь с нами:"
+  },
+
+  // Terms of Service
+  termsIntroTitle: { en: "Agreement to Terms", lv: "Piekrišana noteikumiem", ru: "Согласие с условиями" },
+  termsIntroText: { 
+    en: "By accessing or using the Surat Diamond Latvia website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.",
+    lv: "Piekļūstot vai izmantojot Surat Diamond Latvia vietni un pakalpojumus, jūs piekrītat šiem pakalpojumu noteikumiem. Ja jūs nepiekrītat šiem noteikumiem, lūdzu, neizmantojiet mūsu pakalpojumus.",
+    ru: "Получая доступ к веб-сайту и услугам Surat Diamond Latvia или используя их, вы соглашаетесь соблюдать настоящие Условия обслуживания. Если вы не согласны с этими условиями, пожалуйста, не используйте наши услуги."
+  },
+  productsServicesTitle: { en: "Products and Services", lv: "Produkti un pakalpojumi", ru: "Продукты и услуги" },
+  productsServicesText: { 
+    en: "All products displayed on our website are subject to availability. We reserve the right to limit quantities and discontinue products at any time. Product images are for illustration purposes; actual items may vary slightly due to the unique nature of diamonds and precious stones.",
+    lv: "Visi produkti, kas tiek parādīti mūsu vietnē, ir atkarīgi no pieejamības. Mēs paturam tiesības ierobežot daudzumus un pārtraukt produktu piedāvājumu jebkurā laikā. Produktu attēli ir ilustratīvi; faktiskie priekšmeti var nedaudz atšķirties dimantu un dārgakmeņu unikālās dabas dēļ.",
+    ru: "Все товары, представленные на нашем сайте, зависят от наличия. Мы оставляем за собой право ограничивать количество и прекращать продажу товаров в любое время. Изображения товаров носят иллюстративный характер; фактические изделия могут немного отличаться из-за уникальной природы бриллиантов и драгоценных камней."
+  },
+  pricingPaymentTitle: { en: "Pricing and Payment", lv: "Cenas un maksājumi", ru: "Цены и оплата" },
+  pricingPaymentText: { 
+    en: "All prices are displayed in Euros (€) and include applicable VAT. Payment terms:",
+    lv: "Visas cenas ir norādītas eiro (€) un ietver piemērojamo PVN. Maksājumu noteikumi:",
+    ru: "Все цены указаны в евро (€) и включают применимый НДС. Условия оплаты:"
+  },
+  pricingPaymentItem1: { en: "Full payment is required at the time of purchase", lv: "Pilna samaksa ir nepieciešama pirkuma brīdī", ru: "Полная оплата требуется в момент покупки" },
+  pricingPaymentItem2: { en: "We accept major credit cards through Stripe", lv: "Mēs pieņemam galvenās kredītkartes caur Stripe", ru: "Мы принимаем основные кредитные карты через Stripe" },
+  pricingPaymentItem3: { en: "Prices are subject to change without notice", lv: "Cenas var mainīties bez iepriekšēja brīdinājuma", ru: "Цены могут быть изменены без предварительного уведомления" },
+  shippingDeliveryTitle: { en: "Shipping and Delivery", lv: "Piegāde", ru: "Доставка" },
+  shippingDeliveryText: { 
+    en: "We offer insured shipping within the European Union. Delivery times typically range from 5-10 business days. All shipments are fully insured and require signature upon delivery. International shipping may be subject to customs duties and taxes.",
+    lv: "Mēs piedāvājam apdrošinātu piegādi Eiropas Savienībā. Piegādes laiks parasti ir 5-10 darba dienas. Visi sūtījumi ir pilnībā apdrošināti un prasa parakstu pēc piegādes. Starptautiskajai piegādei var tikt piemēroti muitas nodokļi un nodevas.",
+    ru: "Мы предлагаем застрахованную доставку в пределах Европейского Союза. Сроки доставки обычно составляют 5-10 рабочих дней. Все отправления полностью застрахованы и требуют подписи при получении. Международная доставка может облагаться таможенными пошлинами и налогами."
+  },
+  returnsRefundsTitle: { en: "Returns and Refunds", lv: "Atgriešana un atmaksa", ru: "Возврат и возмещение" },
+  returnsRefundsText: { 
+    en: "We want you to be completely satisfied with your purchase. Our return policy:",
+    lv: "Mēs vēlamies, lai jūs būtu pilnībā apmierināti ar savu pirkumu. Mūsu atgriešanas politika:",
+    ru: "Мы хотим, чтобы вы были полностью удовлетворены своей покупкой. Наша политика возврата:"
+  },
+  returnsRefundsItem1: { en: "14-day return period from delivery date", lv: "14 dienu atgriešanas periods no piegādes datuma", ru: "14-дневный период возврата с даты доставки" },
+  returnsRefundsItem2: { en: "Items must be unused and in original packaging", lv: "Priekšmetiem jābūt nelietotiem un oriģinālajā iepakojumā", ru: "Товары должны быть неиспользованными и в оригинальной упаковке" },
+  returnsRefundsItem3: { en: "Bespoke/custom items are non-refundable", lv: "Individuāli izgatavotiem priekšmetiem atmaksa netiek veikta", ru: "Изделия на заказ не подлежат возврату" },
+  warrantyTitle: { en: "Warranty", lv: "Garantija", ru: "Гарантия" },
+  warrantyText: { 
+    en: "All our jewelry comes with a 2-year warranty covering manufacturing defects. This warranty does not cover damage from normal wear, accidents, or improper care. Diamond certifications are provided by internationally recognized gemological laboratories.",
+    lv: "Visām mūsu rotaslietām ir 2 gadu garantija, kas sedz ražošanas defektus. Šī garantija neattiecas uz bojājumiem no parastās nolietošanās, nelaimes gadījumiem vai nepareizas kopšanas. Dimantu sertifikātus izsniedz starptautiski atzītas gemoloģiskās laboratorijas.",
+    ru: "На все наши украшения предоставляется 2-летняя гарантия, покрывающая производственные дефекты. Эта гарантия не распространяется на повреждения от нормального износа, несчастных случаев или неправильного ухода. Сертификаты на бриллианты выдаются международно признанными геммологическими лабораториями."
+  },
+  intellectualPropertyTitle: { en: "Intellectual Property", lv: "Intelektuālais īpašums", ru: "Интеллектуальная собственность" },
+  intellectualPropertyText: { 
+    en: "All content on this website, including text, images, logos, and designs, is the property of Surat Diamond Latvia and is protected by copyright and trademark laws. Unauthorized use, reproduction, or distribution is prohibited.",
+    lv: "Viss saturs šajā vietnē, ieskaitot tekstu, attēlus, logotipus un dizainus, ir Surat Diamond Latvia īpašums un ir aizsargāts ar autortiesību un preču zīmju likumiem. Neatļauta izmantošana, reproducēšana vai izplatīšana ir aizliegta.",
+    ru: "Весь контент на этом сайте, включая тексты, изображения, логотипы и дизайны, является собственностью Surat Diamond Latvia и защищен законами об авторском праве и товарных знаках. Несанкционированное использование, воспроизведение или распространение запрещено."
+  },
+  limitationLiabilityTitle: { en: "Limitation of Liability", lv: "Atbildības ierobežojums", ru: "Ограничение ответственности" },
+  limitationLiabilityText: { 
+    en: "Surat Diamond Latvia shall not be liable for any indirect, incidental, or consequential damages arising from the use of our website or products. Our liability is limited to the purchase price of the product in question.",
+    lv: "Surat Diamond Latvia nav atbildīgs par netiešiem, nejaušiem vai izrietošiem zaudējumiem, kas rodas no mūsu vietnes vai produktu izmantošanas. Mūsu atbildība ir ierobežota līdz attiecīgā produkta pirkuma cenai.",
+    ru: "Surat Diamond Latvia не несет ответственности за любые косвенные, случайные или последующие убытки, возникающие в результате использования нашего веб-сайта или продуктов. Наша ответственность ограничивается покупной ценой соответствующего товара."
+  },
+  governingLawTitle: { en: "Governing Law", lv: "Piemērojamie likumi", ru: "Применимое право" },
+  governingLawText: { 
+    en: "These Terms of Service are governed by the laws of the Republic of Latvia. Any disputes shall be resolved in the courts of Riga, Latvia.",
+    lv: "Šie pakalpojumu noteikumi ir pakļauti Latvijas Republikas likumiem. Jebkuri strīdi tiks risināti Rīgas, Latvijas tiesās.",
+    ru: "Настоящие Условия обслуживания регулируются законодательством Латвийской Республики. Любые споры подлежат разрешению в судах Риги, Латвия."
+  },
+  termsContactText: { 
+    en: "For questions about these Terms of Service, please contact us at:",
+    lv: "Ja jums ir jautājumi par šiem pakalpojumu noteikumiem, lūdzu, sazinieties ar mums:",
+    ru: "По вопросам, касающимся настоящих Условий обслуживания, пожалуйста, свяжитесь с нами:"
+  },
 };
 
 interface LanguageContextType {
