@@ -196,6 +196,17 @@ export const translations: Translations = {
   authError: { en: "Authentication error. Please try again.", lv: "Autentifikācijas kļūda. Lūdzu, mēģiniet vēlreiz.", ru: "Ошибка аутентификации. Попробуйте снова." },
   loginToCheckout: { en: "Please sign in to checkout", lv: "Lūdzu, piesakieties, lai apmaksātu", ru: "Пожалуйста, войдите для оформления заказа" },
   account: { en: "Account", lv: "Konts", ru: "Аккаунт" },
+  forgotPassword: { en: "Forgot password?", lv: "Aizmirsi paroli?", ru: "Забыли пароль?" },
+  resetPassword: { en: "Reset Password", lv: "Atjaunot paroli", ru: "Сбросить пароль" },
+  sendResetLink: { en: "Send Reset Link", lv: "Nosūtīt atjaunošanas saiti", ru: "Отправить ссылку для сброса" },
+  resetLinkSent: { en: "Password reset link sent! Check your email.", lv: "Paroles atjaunošanas saite nosūtīta! Pārbaudiet savu e-pastu.", ru: "Ссылка для сброса пароля отправлена! Проверьте почту." },
+  backToLogin: { en: "Back to login", lv: "Atpakaļ uz pieteikšanos", ru: "Вернуться к входу" },
+  newPassword: { en: "New Password", lv: "Jauna parole", ru: "Новый пароль" },
+  confirmNewPassword: { en: "Confirm New Password", lv: "Apstipriniet jauno paroli", ru: "Подтвердите новый пароль" },
+  updatePassword: { en: "Update Password", lv: "Atjaunināt paroli", ru: "Обновить пароль" },
+  passwordUpdated: { en: "Password updated successfully!", lv: "Parole veiksmīgi atjaunināta!", ru: "Пароль успешно обновлен!" },
+  enterEmailForReset: { en: "Enter your email to receive a reset link", lv: "Ievadiet savu e-pastu, lai saņemtu atjaunošanas saiti", ru: "Введите email для получения ссылки сброса" },
+  setNewPassword: { en: "Set your new password", lv: "Iestatiet jauno paroli", ru: "Установите новый пароль" },
   
   // Profile
   profile: { en: "Profile", lv: "Profils", ru: "Профиль" },
