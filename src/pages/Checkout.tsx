@@ -61,7 +61,24 @@ const Checkout = () => {
 
     const whatsappUrl = `https://wa.me/37125578862?text=${encodeURIComponent(message)}`;
 
-    window.location.assign(whatsappUrl);
+    try {
+      window.location.assign(whatsappUrl);
+
+      // If navigation is blocked (common in embedded previews), this can fail silently.
+      // Show a copyable link shortly after as a last-resort fallback.
+      window.setTimeout(() => {
+        if (document.visibilityState === "visible") {
+          window.prompt(
+            "Copy this WhatsApp link and open it in a new tab:",
+            whatsappUrl
+          );
+        }
+      }, 700);
+    } catch (error) {
+      // In embedded/sandboxed environments, navigation can be blocked and throw.
+      console.error("WhatsApp redirect blocked:", error);
+      window.prompt("Copy this WhatsApp link and open it in a new tab:", whatsappUrl);
+    }
   };
 
   // Empty Cart View
