@@ -40,6 +40,8 @@ const Checkout = () => {
   const { user, isLoading: authLoading } = useAuth();
   const { profile } = useProfile();
   const [isLoading, setIsLoading] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [orderMessage, setOrderMessage] = useState<string>("");
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-EU", {
@@ -59,57 +61,45 @@ const Checkout = () => {
     }
   };
 
-  const handleWhatsAppCheckout = () => {
-    if (!user) {
-      toast.error(t("loginToCheckout"));
-      navigate("/auth?redirect=/checkout");
-      return;
+  const buildOrderMessage = () => {
+    const customerName = profile?.first_name && profile?.last_name 
+      ? `${profile.first_name} ${profile.last_name}` 
+      : user?.email;
+    const customerEmail = user?.email;
+
+    const orderItems = items.map((item) => {
+      const name = getProductName(item.product);
+      const qty = item.quantity;
+      const price = formatPrice(item.product.price * qty);
+      return `• ${name} x ${qty} - ${price}`;
+    }).join("\n");
+
+    let greeting = "";
+    let orderLabel = "";
+    let totalLabel = "";
+    let confirmLabel = "";
+
+    switch (language) {
+      case "lv":
+        greeting = "🛒 *Jauns pasūtījums no Surat Diamond*";
+        orderLabel = "📦 *Pasūtījuma detaļas:*";
+        totalLabel = "💰 *Kopā:*";
+        confirmLabel = "📍 Lūdzu, apstipriniet pieejamību un piegādes iespējas.";
+        break;
+      case "ru":
+        greeting = "🛒 *Новый заказ от Surat Diamond*";
+        orderLabel = "📦 *Детали заказа:*";
+        totalLabel = "💰 *Итого:*";
+        confirmLabel = "📍 Пожалуйста, подтвердите наличие и варианты доставки.";
+        break;
+      default:
+        greeting = "🛒 *New Order from Surat Diamond*";
+        orderLabel = "📦 *Order Details:*";
+        totalLabel = "💰 *Total:*";
+        confirmLabel = "📍 Please confirm availability and delivery options.";
     }
 
-    setIsLoading(true);
-
-    try {
-      // Build customer info
-      const customerName = profile?.first_name && profile?.last_name 
-        ? `${profile.first_name} ${profile.last_name}` 
-        : user.email;
-      const customerEmail = user.email;
-
-      // Build order items list
-      const orderItems = items.map((item) => {
-        const name = getProductName(item.product);
-        const qty = item.quantity;
-        const price = formatPrice(item.product.price * qty);
-        return `• ${name} x ${qty} - ${price}`;
-      }).join("\n");
-
-      // Build WhatsApp message based on language
-      let greeting = "";
-      let orderLabel = "";
-      let totalLabel = "";
-      let confirmLabel = "";
-
-      switch (language) {
-        case "lv":
-          greeting = "🛒 *Jauns pasūtījums no Surat Diamond*";
-          orderLabel = "📦 *Pasūtījuma detaļas:*";
-          totalLabel = "💰 *Kopā:*";
-          confirmLabel = "📍 Lūdzu, apstipriniet pieejamību un piegādes iespējas.";
-          break;
-        case "ru":
-          greeting = "🛒 *Новый заказ от Surat Diamond*";
-          orderLabel = "📦 *Детали заказа:*";
-          totalLabel = "💰 *Итого:*";
-          confirmLabel = "📍 Пожалуйста, подтвердите наличие и варианты доставки.";
-          break;
-        default:
-          greeting = "🛒 *New Order from Surat Diamond*";
-          orderLabel = "📦 *Order Details:*";
-          totalLabel = "💰 *Total:*";
-          confirmLabel = "📍 Please confirm availability and delivery options.";
-      }
-
-      const message = `${greeting}
+    return `${greeting}
 
 👤 ${language === "lv" ? "Klients" : language === "ru" ? "Клиент" : "Customer"}: ${customerName}
 📧 Email: ${customerEmail}
@@ -120,26 +110,61 @@ ${orderItems}
 ${totalLabel} ${formatPrice(totalPrice)}
 
 ${confirmLabel}`;
+  };
 
-      // Encode message and create WhatsApp URL
+  const handleWhatsAppCheckout = () => {
+    if (!user) {
+      toast.error(t("loginToCheckout"));
+      navigate("/auth?redirect=/checkout");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const message = buildOrderMessage();
+      setOrderMessage(message);
+      
       const encodedMessage = encodeURIComponent(message);
-      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
+      const url = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
 
-      // Try to open WhatsApp - use link click to avoid popup blocker issues
-      const link = document.createElement("a");
-      link.href = whatsappUrl;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Try window.open first
+      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
 
-      toast.success(t("whatsappOpened"));
+      if (newWindow) {
+        toast.success(t("whatsappOpened"));
+        setWhatsappUrl(null);
+      } else {
+        // Popup was blocked - show fallback link
+        setWhatsappUrl(url);
+        toast.info(
+          language === "lv" 
+            ? "Noklikšķiniet uz saites zemāk, lai atvērtu WhatsApp" 
+            : language === "ru" 
+            ? "Нажмите на ссылку ниже, чтобы открыть WhatsApp"
+            : "Click the link below to open WhatsApp"
+        );
+      }
     } catch (error) {
       console.error("WhatsApp checkout error:", error);
       toast.error(t("checkoutError"));
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleCopyMessage = async () => {
+    try {
+      await navigator.clipboard.writeText(orderMessage);
+      toast.success(
+        language === "lv" 
+          ? "Pasūtījums nokopēts!" 
+          : language === "ru" 
+          ? "Заказ скопирован!"
+          : "Order copied to clipboard!"
+      );
+    } catch (error) {
+      toast.error("Failed to copy");
     }
   };
 
@@ -292,6 +317,42 @@ ${confirmLabel}`;
                     <MessageCircle className="w-4 h-4 mr-2" />
                     {t("orderViaWhatsApp")}
                   </Button>
+                )}
+
+                {/* Fallback link when popup is blocked */}
+                {whatsappUrl && (
+                  <div className="mb-4 p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-sm">
+                    <p className="text-sm text-green-800 dark:text-green-200 mb-3 text-center">
+                      {language === "lv" 
+                        ? "Noklikšķiniet zemāk, lai atvērtu WhatsApp:" 
+                        : language === "ru" 
+                        ? "Нажмите ниже, чтобы открыть WhatsApp:"
+                        : "Click below to open WhatsApp:"}
+                    </p>
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-sm font-medium transition-colors"
+                    >
+                      <MessageCircle className="w-5 h-5" />
+                      {language === "lv" 
+                        ? "Atvērt WhatsApp" 
+                        : language === "ru" 
+                        ? "Открыть WhatsApp"
+                        : "Open WhatsApp"}
+                    </a>
+                    <button
+                      onClick={handleCopyMessage}
+                      className="w-full mt-2 text-sm text-green-700 dark:text-green-300 hover:underline"
+                    >
+                      {language === "lv" 
+                        ? "Vai kopēt pasūtījumu" 
+                        : language === "ru" 
+                        ? "Или скопировать заказ"
+                        : "Or copy order message"}
+                    </button>
+                  </div>
                 )}
 
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
