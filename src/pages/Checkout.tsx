@@ -157,14 +157,43 @@ ${confirmLabel}`;
     try {
       await navigator.clipboard.writeText(orderMessage);
       toast.success(
-        language === "lv" 
-          ? "Pasūtījums nokopēts!" 
-          : language === "ru" 
-          ? "Заказ скопирован!"
-          : "Order copied to clipboard!"
+        language === "lv"
+          ? "Pasūtījums nokopēts!"
+          : language === "ru"
+            ? "Заказ скопирован!"
+            : "Order copied to clipboard!"
       );
     } catch (error) {
-      toast.error("Failed to copy");
+      toast.error(
+        language === "lv"
+          ? "Neizdevās nokopēt"
+          : language === "ru"
+            ? "Не удалось скопировать"
+            : "Failed to copy"
+      );
+    }
+  };
+
+  const handleCopyLink = async () => {
+    if (!whatsappUrl) return;
+
+    try {
+      await navigator.clipboard.writeText(whatsappUrl);
+      toast.success(
+        language === "lv"
+          ? "WhatsApp saite nokopēta!"
+          : language === "ru"
+            ? "Ссылка WhatsApp скопирована!"
+            : "WhatsApp link copied!"
+      );
+    } catch (error) {
+      toast.error(
+        language === "lv"
+          ? "Neizdevās nokopēt"
+          : language === "ru"
+            ? "Не удалось скопировать"
+            : "Failed to copy"
+      );
     }
   };
 
@@ -321,37 +350,63 @@ ${confirmLabel}`;
 
                 {/* Fallback link when popup is blocked */}
                 {whatsappUrl && (
-                  <div className="mb-4 p-4 bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-sm">
-                    <p className="text-sm text-green-800 dark:text-green-200 mb-3 text-center">
-                      {language === "lv" 
-                        ? "Noklikšķiniet zemāk, lai atvērtu WhatsApp:" 
-                        : language === "ru" 
-                        ? "Нажмите ниже, чтобы открыть WhatsApp:"
-                        : "Click below to open WhatsApp:"}
+                  <div className="mb-4 p-4 bg-muted border border-border rounded-sm">
+                    <p className="text-sm text-foreground mb-3 text-center">
+                      {language === "lv"
+                        ? "WhatsApp neatvērās automātiski. Izmantojiet pogu zemāk:" 
+                        : language === "ru"
+                          ? "WhatsApp не открылся автоматически. Используйте кнопку ниже:"
+                          : "WhatsApp didn’t open automatically. Use the button below:"}
                     </p>
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-sm font-medium transition-colors"
+
+                    <Button asChild variant="luxury" size="lg" className="w-full">
+                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="w-4 h-4 mr-2" />
+                        {language === "lv"
+                          ? "Atvērt WhatsApp"
+                          : language === "ru"
+                            ? "Открыть WhatsApp"
+                            : "Open WhatsApp"}
+                      </a>
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full mt-2"
+                      onClick={handleCopyLink}
                     >
-                      <MessageCircle className="w-5 h-5" />
-                      {language === "lv" 
-                        ? "Atvērt WhatsApp" 
-                        : language === "ru" 
-                        ? "Открыть WhatsApp"
-                        : "Open WhatsApp"}
-                    </a>
-                    <button
+                      {language === "lv"
+                        ? "Kopēt WhatsApp saiti"
+                        : language === "ru"
+                          ? "Скопировать ссылку WhatsApp"
+                          : "Copy WhatsApp link"}
+                    </Button>
+
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="w-full mt-1"
                       onClick={handleCopyMessage}
-                      className="w-full mt-2 text-sm text-green-700 dark:text-green-300 hover:underline"
                     >
-                      {language === "lv" 
-                        ? "Vai kopēt pasūtījumu" 
-                        : language === "ru" 
-                        ? "Или скопировать заказ"
-                        : "Or copy order message"}
-                    </button>
+                      {language === "lv"
+                        ? "Kopēt pasūtījuma tekstu"
+                        : language === "ru"
+                          ? "Скопировать текст заказа"
+                          : "Copy order message"}
+                    </Button>
+
+                    <p className="text-xs text-muted-foreground mt-3 break-words">
+                      {language === "lv"
+                        ? "Ja jūs testējat iebūvētajā priekšskatījumā, ārējās saites var tikt bloķētas. Atveriet lietotni jaunā pārlūka cilnē." 
+                        : language === "ru"
+                          ? "Если вы тестируете во встроенном предпросмотре, внешние ссылки могут блокироваться. Откройте приложение в новой вкладке браузера."
+                          : "If you’re testing inside the embedded preview, external links can be blocked. Open the app in a normal browser tab."}
+                    </p>
+
+                    <p className="text-xs text-muted-foreground mt-2 break-all font-mono">
+                      {whatsappUrl}
+                    </p>
                   </div>
                 )}
 
