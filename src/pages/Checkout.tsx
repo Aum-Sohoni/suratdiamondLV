@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCart } from "@/contexts/CartContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useProfile } from "@/hooks/useProfile";
 import { Navigation } from "@/components/layout/Navigation";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -13,19 +14,17 @@ import {
   Plus,
   Minus,
   ShoppingBag,
-  CreditCard,
-  Check,
-  XCircle,
-  Loader2,
-  Shield,
+  MessageCircle,
   LogIn,
 } from "lucide-react";
 import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
 import collectionNecklace from "@/assets/collection-necklace.jpg";
 import collectionRing from "@/assets/collection-ring.jpg";
 import collectionEarrings from "@/assets/collection-earrings.jpg";
 import collectionBracelet from "@/assets/collection-bracelet.jpg";
+
+// WhatsApp phone number (international format without + or spaces)
+const WHATSAPP_PHONE_NUMBER = "37120000000"; // TODO: Replace with actual phone number
 
 const categoryImages: Record<string, string> = {
   necklaces: collectionNecklace,
@@ -37,11 +36,10 @@ const categoryImages: Record<string, string> = {
 const Checkout = () => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const { items, removeFromCart, updateQuantity, totalPrice, clearCart } = useCart();
+  const { items, removeFromCart, updateQuantity, totalPrice } = useCart();
   const { user, isLoading: authLoading } = useAuth();
+  const { profile } = useProfile();
   const [isLoading, setIsLoading] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<"idle" | "success" | "canceled">("idle");
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("en-EU", {
@@ -61,22 +59,7 @@ const Checkout = () => {
     }
   };
 
-  // Check for payment success/cancel from URL params
-  useEffect(() => {
-    const success = searchParams.get("success");
-    const canceled = searchParams.get("canceled");
-
-    if (success === "true") {
-      setPaymentStatus("success");
-      clearCart();
-      toast.success(t("paymentSuccess"));
-    } else if (canceled === "true") {
-      setPaymentStatus("canceled");
-      toast.error(t("paymentCanceled"));
-    }
-  }, [searchParams, clearCart, t]);
-
-  const handleCheckout = async () => {
+  const handleWhatsAppCheckout = () => {
     if (!user) {
       toast.error(t("loginToCheckout"));
       navigate("/auth?redirect=/checkout");
@@ -84,129 +67,75 @@ const Checkout = () => {
     }
 
     setIsLoading(true);
-    
+
     try {
-      // Only send product IDs and quantities - prices are validated server-side
-      const checkoutItems = items.map((item) => ({
-        productId: item.product.id,
-        quantity: item.quantity,
-      }));
+      // Build customer info
+      const customerName = profile?.first_name && profile?.last_name 
+        ? `${profile.first_name} ${profile.last_name}` 
+        : user.email;
+      const customerEmail = user.email;
 
-      const { data, error } = await supabase.functions.invoke("create-checkout", {
-        body: {
-          items: checkoutItems,
-          language,
-        },
-      });
+      // Build order items list
+      const orderItems = items.map((item) => {
+        const name = getProductName(item.product);
+        const qty = item.quantity;
+        const price = formatPrice(item.product.price * qty);
+        return `• ${name} x ${qty} - ${price}`;
+      }).join("\n");
 
-      if (error) {
-        throw new Error(error.message);
+      // Build WhatsApp message based on language
+      let greeting = "";
+      let orderLabel = "";
+      let totalLabel = "";
+      let confirmLabel = "";
+
+      switch (language) {
+        case "lv":
+          greeting = "🛒 *Jauns pasūtījums no Surat Diamond*";
+          orderLabel = "📦 *Pasūtījuma detaļas:*";
+          totalLabel = "💰 *Kopā:*";
+          confirmLabel = "📍 Lūdzu, apstipriniet pieejamību un piegādes iespējas.";
+          break;
+        case "ru":
+          greeting = "🛒 *Новый заказ от Surat Diamond*";
+          orderLabel = "📦 *Детали заказа:*";
+          totalLabel = "💰 *Итого:*";
+          confirmLabel = "📍 Пожалуйста, подтвердите наличие и варианты доставки.";
+          break;
+        default:
+          greeting = "🛒 *New Order from Surat Diamond*";
+          orderLabel = "📦 *Order Details:*";
+          totalLabel = "💰 *Total:*";
+          confirmLabel = "📍 Please confirm availability and delivery options.";
       }
 
-      if (data?.url) {
-        // Stripe Checkout cannot be displayed inside the Lovable preview iframe.
-        // Open in a new tab/window to ensure it loads correctly.
-        const opened = window.open(data.url, "_blank", "noopener,noreferrer");
-        if (!opened) {
-          // Fallback if the popup was blocked
-          window.location.href = data.url;
-        }
-      } else {
-        throw new Error("No checkout URL returned");
-      }
+      const message = `${greeting}
+
+👤 ${language === "lv" ? "Klients" : language === "ru" ? "Клиент" : "Customer"}: ${customerName}
+📧 Email: ${customerEmail}
+
+${orderLabel}
+${orderItems}
+
+${totalLabel} ${formatPrice(totalPrice)}
+
+${confirmLabel}`;
+
+      // Encode message and create WhatsApp URL
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
+
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+
+      toast.success(t("whatsappOpened"));
     } catch (error) {
-      console.error("Checkout error:", error);
+      console.error("WhatsApp checkout error:", error);
       toast.error(t("checkoutError"));
+    } finally {
       setIsLoading(false);
     }
   };
-
-  // Payment Success View
-  if (paymentStatus === "success") {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <main className="pt-24 pb-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-20"
-            >
-              <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-8">
-                <Check className="w-10 h-10 text-primary-foreground" />
-              </div>
-              <h1 className="font-display text-3xl sm:text-4xl text-foreground mb-4">
-                {t("thankYouOrder")}
-              </h1>
-              <p className="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
-                {t("orderConfirmation")}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/shop">
-                  <Button variant="luxuryOutline" size="lg">
-                    {t("continueShopping")}
-                  </Button>
-                </Link>
-                <Link to="/">
-                  <Button variant="luxury" size="lg">
-                    {t("returnHome")}
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
-
-  // Payment Canceled View
-  if (paymentStatus === "canceled") {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navigation />
-        <main className="pt-24 pb-16">
-          <div className="container mx-auto px-4 sm:px-6 max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center py-20"
-            >
-              <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-8">
-                <XCircle className="w-10 h-10 text-muted-foreground" />
-              </div>
-              <h1 className="font-display text-3xl sm:text-4xl text-foreground mb-4">
-                {t("paymentCanceled")}
-              </h1>
-              <p className="text-muted-foreground text-lg mb-8 max-w-md mx-auto">
-                {t("paymentCanceledDesc")}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  variant="luxury"
-                  size="lg"
-                  onClick={() => {
-                    setPaymentStatus("idle");
-                    navigate("/checkout", { replace: true });
-                  }}
-                >
-                  {t("tryAgain")}
-                </Button>
-                <Link to="/shop">
-                  <Button variant="luxuryOutline" size="lg">
-                    {t("continueShopping")}
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
 
   // Empty Cart View
   if (items.length === 0) {
@@ -240,7 +169,7 @@ const Checkout = () => {
     );
   }
 
-  // Cart View with Stripe Checkout
+  // Cart View with WhatsApp Checkout
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -351,26 +280,17 @@ const Checkout = () => {
                     variant="luxury"
                     size="lg"
                     className="w-full mb-4"
-                    onClick={handleCheckout}
+                    onClick={handleWhatsAppCheckout}
                     disabled={isLoading || authLoading}
                   >
-                    {isLoading ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        {t("processing")}
-                      </>
-                    ) : (
-                      <>
-                        <CreditCard className="w-4 h-4 mr-2" />
-                        {t("proceedToCheckout")}
-                      </>
-                    )}
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    {t("orderViaWhatsApp")}
                   </Button>
                 )}
 
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                  <Shield className="w-4 h-4" />
-                  <span>{t("securePayment")}</span>
+                  <MessageCircle className="w-4 h-4" />
+                  <span>{t("whatsappSecureOrder")}</span>
                 </div>
               </div>
             </div>

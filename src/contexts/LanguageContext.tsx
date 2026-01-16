@@ -163,6 +163,11 @@ export const translations: Translations = {
   proceedToCheckout: { en: "Proceed to Secure Checkout", lv: "Turpināt uz drošu apmaksu", ru: "Перейти к безопасной оплате" },
   securePayment: { en: "Secure Payment via Stripe", lv: "Droša maksājuma caur Stripe", ru: "Безопасная оплата через Stripe" },
   processing: { en: "Processing...", lv: "Apstrādā...", ru: "Обработка..." },
+  
+  // WhatsApp Checkout
+  orderViaWhatsApp: { en: "Order via WhatsApp", lv: "Pasūtīt caur WhatsApp", ru: "Заказать через WhatsApp" },
+  whatsappSecureOrder: { en: "Order via WhatsApp Chat", lv: "Pasūtīt caur WhatsApp čatu", ru: "Заказать через чат WhatsApp" },
+  whatsappOpened: { en: "WhatsApp opened! Complete your order there.", lv: "WhatsApp atvērts! Pabeidziet pasūtījumu tur.", ru: "WhatsApp открыт! Завершите заказ там." },
   paymentSuccess: { en: "Payment Successful!", lv: "Maksājums veiksmīgs!", ru: "Оплата успешна!" },
   thankYouOrder: { en: "Thank you for your order!", lv: "Paldies par jūsu pasūtījumu!", ru: "Спасибо за ваш заказ!" },
   orderConfirmation: { en: "Your order has been placed successfully. We'll send you a confirmation email shortly.", lv: "Jūsu pasūtījums ir veiksmīgi noformēts. Mēs drīzumā nosūtīsim jums apstiprinājuma e-pastu.", ru: "Ваш заказ успешно оформлен. Мы скоро отправим вам письмо с подтверждением." },
