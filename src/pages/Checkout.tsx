@@ -125,8 +125,14 @@ ${confirmLabel}`;
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodedMessage}`;
 
-      // Open WhatsApp in new tab
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      // Try to open WhatsApp - use link click to avoid popup blocker issues
+      const link = document.createElement("a");
+      link.href = whatsappUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
       toast.success(t("whatsappOpened"));
     } catch (error) {
