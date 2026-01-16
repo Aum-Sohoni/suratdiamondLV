@@ -24,7 +24,7 @@ import collectionEarrings from "@/assets/collection-earrings.jpg";
 import collectionBracelet from "@/assets/collection-bracelet.jpg";
 
 // WhatsApp phone number (international format without + or spaces)
-const WHATSAPP_PHONE_NUMBER = "37120000000"; // TODO: Replace with actual phone number
+const WHATSAPP_PHONE_NUMBER = "37125578862";
 
 const categoryImages: Record<string, string> = {
   necklaces: collectionNecklace,
